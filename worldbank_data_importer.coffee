@@ -30,7 +30,7 @@ window.worldBankDataParser =
     # For some reason the CSV parser causes empty items to appear in the parsed data, remove them
     .filter (countryData) -> countryData['Country Code'].length > 0
     .map (countryData) ->
-      name: countryData['Country Name']
+      name: countryData['Country Code']
       values:
         # Get that represent years
         Object.keys(countryData)

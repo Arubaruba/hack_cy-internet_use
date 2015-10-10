@@ -3,10 +3,12 @@ d3.xml('access_to_internet_over_time.svg', (xml) ->
 
   BAR_OFFSET_X = 80
   MAX_COUNTRIES = 9
-  MAX_COUNTRY_LETTERS = 6
-  BINARY_DIGIT_COUNT = 11
-  BINARY_OFFSET_INITIAL_Y = 7
+
+  BINARY_DIGIT_COUNT = 12
+  BINARY_OFFSET_INITIAL_Y = 2
   BINARY_OFFSET_Y = 11
+  MAX_BINARY_LINES = 23
+  DOCUMENT_WIDTH = 842
 
   d3.select document.body
   .style 'background-color', C_BACKGROUND
@@ -21,102 +23,105 @@ d3.xml('access_to_internet_over_time.svg', (xml) ->
     yearRange = window.worldBankDataParser.yearRange(importedWorldBankData)
     countries = window.worldBankDataParser.countryData(importedWorldBankData)
 
-    for country, countryIndex in countries.slice(0, MAX_COUNTRIES)
+    getCountryData = (yearIndex) ->
+      sortedCountries = countries
+      .map((country) ->
+        name: country.name
+        value: country.values[yearIndex])
+      .sort((country1, country2) ->
+        country2.value - country1.value
+      ) #.slice(0, MAX_COUNTRIES)
+      countries.map (country) ->
+        rank = 0
+        for c, i in sortedCountries
+          if country.name == c.name
+            rank = i
+
+        name: country.name
+        ranking: rank
+        value: country.values[yearIndex]
+
+    asdf = getCountryData(1)
+    asdf1 = getCountryData(10)
+
+    countryGroups = svg.append('g').selectAll('g')
+    .data getCountryData(10)
+    .enter().append 'g'
+    .html((country, countryIndex) ->
       bar = d3.select(svg.node().appendChild(barTemplate.node().cloneNode(true)))
-      .attr 'transform', "translate(#{BAR_OFFSET_X * countryIndex}, 0)"
+      .transition().ease('cubic-in').duration(200)
+      .attr 'transform', "translate(#{BAR_OFFSET_X * (country.ranking)}, 0)"
+      .attr 'name', countryIndex
 
-      bar.select('#country-name').text country.name.toUpperCase().slice(0, MAX_COUNTRY_LETTERS)
+      bar.select('#country-name').text country.name
 
-      binaryTemplate =  bar.select('#binary').remove()
+      binaryTemplate = bar.select('#binary').remove()
+      binaryLineCount = MAX_BINARY_LINES * country.value / 100
 
-      for percentage in [0..23]
+      for lineIndex in [0..Math.floor(binaryLineCount)]
         binary = d3.select(bar.node().appendChild(binaryTemplate.node().cloneNode(true)))
         .style 'font-family', 'monospace'
-        .attr 'transform', "translate(0, #{percentage * 11 + BINARY_OFFSET_INITIAL_Y})"
+        .attr 'transform', "translate(0, #{(MAX_BINARY_LINES - lineIndex) * BINARY_OFFSET_Y + BINARY_OFFSET_INITIAL_Y})"
 
-        randomizedBinary = '1'
-        for i in [0..BINARY_DIGIT_COUNT]
+        # if we're not a the last line we print the full number of digits
+        # else we calculate the remainder of the binaryLineCount
+        digits = if Math.floor(binaryLineCount) != lineIndex
+          BINARY_DIGIT_COUNT
+        else
+          BINARY_DIGIT_COUNT * (binaryLineCount - Math.floor(binaryLineCount))
+
+        randomizedBinary = ''
+        for i in [0..digits]
           randomizedBinary += (Math.ceil(Math.random() * 100)) % 2
 
         binary.select('text').text(randomizedBinary)
         .style 'font-family', 'monospace'
+    )
+
+
+    d3.select('#slider-rect')
+    .on('mousemove', () ->
+
+      d3.select('#slider-sym')
+      .attr('transform', "translate(#{Math.ceil(d3.mouse(@)[0]) - 50},0)")
+
+      console.log (d3.mouse(@)[0] / DOCUMENT_WIDTH)
+      data = getCountryData(Math.floor(d3.mouse(@)[0] / DOCUMENT_WIDTH * (yearRange.endDate - yearRange.startDate)))
+      console.log ((yearRange.end - yearRange.start))
+      d3.select(document.body).selectAll('#bar')
+#      .transition().ease('cubic-in').duration(200)
+      # TODO HACK - SUPER BAD :((((
+      .transition().ease('cubic-in').duration(200)
+      .attr 'transform', (country, countryIndex) ->
+        "translate(#{BAR_OFFSET_X * (data[countryIndex].ranking)}, 0)"
+
+      .each((c, ci) ->
+        bar = d3.select(@)
+
+        binaryTemplate = bar.select('#binary').remove()
+        bar.selectAll('#binary').remove()
+        binaryLineCount = MAX_BINARY_LINES * data[ci].value / 100
+
+        for lineIndex in [0..Math.floor(binaryLineCount)]
+          binary = d3.select(bar.node().appendChild(binaryTemplate.node().cloneNode(true)))
+          .style 'font-family', 'monospace'
+          .attr 'transform', "translate(0, #{(MAX_BINARY_LINES - lineIndex) * BINARY_OFFSET_Y + BINARY_OFFSET_INITIAL_Y})"
+
+          # if we're not a the last line we print the full number of digits
+          # else we calculate the remainder of the binaryLineCount
+          digits = if Math.floor(binaryLineCount) != lineIndex
+            BINARY_DIGIT_COUNT
+          else
+            BINARY_DIGIT_COUNT * (binaryLineCount - Math.floor(binaryLineCount))
+
+          randomizedBinary = ''
+          for i in [0..digits]
+            randomizedBinary += (Math.ceil(Math.random() * 100)) % 2
+
+          binary.select('text').text(randomizedBinary)
+          .style 'font-family', 'monospace'
+
+      )
+    )
   )
-)
-
-d3.csv('internet_use_over_time.csv', (importedWorldBankData) ->
-  return
-  ## Constants
-  C_BACKGROUND = '#00cc00';
-
-  BAR_HEIGHT = 20
-  BAR_SPACING = 4
-  BAR_LABEL_FONT_SIZE = 13
-  DOCUMENT_WIDTH = 800
-  DOCUMENT_HEIGHT = 800
-
-  yearRange = window.worldBankDataParser.yearRange(importedWorldBankData)
-  countries = window.worldBankDataParser.countryData(importedWorldBankData)
-
-  yearIndex = 0
-
-  xScale = d3.scale.linear()
-  .domain([0, 100])
-  .range([0, DOCUMENT_WIDTH])
-
-  d3.select document.body
-  .style 'background-color', C_BACKGROUND
-  .style 'margin', 0
-  .style 'font-family', 'Helvetica'
-
-  svg = d3.select(document.body).append 'svg'
-  .attr 'viewBox', () -> "0 0 #{DOCUMENT_WIDTH} #{DOCUMENT_HEIGHT}"
-
-  # Add the bars
-  bars = svg.append('g').selectAll 'g'
-  .data countries
-  .enter().append 'g'
-  .attr 'transform', 'translate(0, 40)'
-
-  bars.append('rect')
-  .attr(
-    x: 0
-    y: (country, i) -> i * (BAR_HEIGHT + BAR_SPACING )
-    width: (country) -> xScale(country.values[yearIndex])
-    height: BAR_HEIGHT
-  )
-  .style 'fill', '#000fff'
-
-  bars.append('text')
-  .style 'font-size', BAR_LABEL_FONT_SIZE + 'px'
-  .attr(
-    x: 0
-    y: (country, i) -> i * (BAR_HEIGHT + BAR_SPACING) + BAR_LABEL_FONT_SIZE
-  )
-  .text (country) -> country.name.toUpperCase()
-
-  yearSelectors = svg.append('g').selectAll('g')
-  .data [yearRange.startDate..yearRange.endDate]
-  .enter().append('g')
-
-  yearSelectors.append('rect')
-  .attr(
-    x: (year, i) -> i * 20
-    y: 0
-    width: 20
-    height: 20
-  )
-  .style 'fill', '#00ffff'
-  .on('mouseover', (year, i) ->
-    bars.selectAll('rect')
-    .transition().delay(0).ease('cubic-out').duration(300)
-    .attr 'width', (country) -> xScale(country.values[i])
-  )
-
-  yearSelectors.append 'text'
-  .attr (
-    x: (year, i) -> i * 20
-    y: 20
-  )
-  .text (year) -> year
-  .style 'font-size', '8px'
 )

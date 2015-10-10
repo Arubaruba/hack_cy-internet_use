@@ -19,13 +19,14 @@
 	.st13{fill:#CDCCCC;}
 	.st14{font-size:11px;}
 	.st15{font-size:9px;}
-	.st16{fill:#272530;stroke:#52BBD1;stroke-width:6;stroke-miterlimit:10;}
-	.st17{font-family:'CourierNewPSMT';}
-	.st18{font-size:7px;}
-	.st19{fill:url(#XMLID_14_);}
-	.st20{fill:#35B44A;}
-	.st21{fill:#EDF5E4;}
-	.st22{font-size:24px;}
+	.st16{opacity:0;fill:#BEDA74;}
+	.st17{fill:#272530;stroke:#52BBD1;stroke-width:6;stroke-miterlimit:10;}
+	.st18{font-family:'CourierNewPSMT';}
+	.st19{font-size:7px;}
+	.st20{fill:url(#XMLID_14_);}
+	.st21{fill:#35B44A;}
+	.st22{fill:#EDF5E4;}
+	.st23{font-size:24px;}
 </style>
 <g id="Layer_1">
 	<circle id="XMLID_1_" class="st0" cx="48" cy="-65" r="26"/>
@@ -39,12 +40,12 @@
 	<line id="XMLID_11_" class="st10" x1="0" y1="143.1" x2="841.9" y2="143.1"/>
 	<path id="XMLID_13_" class="st2" d="M216.5,193.5"/>
 	<g id="XMLID_19_">
-		<rect id="XMLID_144_" x="10.8" y="171.1" class="st5" width="40.5" height="18.4"/>
-		<text id="XMLID_143_" transform="matrix(1 0 0 1 10.8406 183.9863)" class="st0 st6 st11">1980</text>
+		<rect id="XMLID_143_" x="10.8" y="171.1" class="st5" width="40.5" height="18.4"/>
+		<text id="XMLID_142_" transform="matrix(1 0 0 1 10.8406 183.9863)" class="st0 st6 st11">1980</text>
 	</g>
 	<g id="XMLID_22_">
-		<rect id="XMLID_142_" x="790.8" y="171.1" class="st5" width="40.5" height="18.4"/>
-		<text id="XMLID_141_" transform="matrix(1 0 0 1 790.8414 183.9863)" class="st0 st6 st11">2015</text>
+		<rect id="XMLID_141_" x="790.8" y="171.1" class="st5" width="40.5" height="18.4"/>
+		<text id="XMLID_140_" transform="matrix(1 0 0 1 790.8414 183.9863)" class="st0 st6 st11">2015</text>
 	</g>
 	<g id="XMLID_119_">
 		<path id="XMLID_118_" class="st12" d="M105.2,57.1c0,20.9-17,37.9-37.9,37.9s-37.9-17-37.9-37.9l0,0c0-20.9,17-37.9,37.9-37.9
@@ -304,20 +305,23 @@
 	<path id="XMLID_221_" class="st2" d="M660.5,193.5"/>
 	<path id="XMLID_238_" class="st2" d="M771.5,193.5"/>
 	<g id="XMLID_40_">
-		<rect id="XMLID_140_" x="5.1" y="205.3" class="st5" width="89" height="40.5"/>
-		<text id="XMLID_139_" transform="matrix(1 0 0 1 65.9256 213.1879)"><tspan x="0" y="0" class="st0 st6 st14">100%</tspan><tspan x="-39.4" y="10.8" class="st8 st6 st15">of the Population</tspan></text>
+		<rect id="XMLID_139_" x="5.1" y="205.3" class="st5" width="89" height="40.5"/>
+		<text id="XMLID_138_" transform="matrix(1 0 0 1 65.9256 213.1879)"><tspan x="0" y="0" class="st0 st6 st14">100%</tspan><tspan x="-39.4" y="10.8" class="st8 st6 st15">of the Population</tspan></text>
 	</g>
 	<g id="XMLID_51_">
-		<rect id="XMLID_138_" x="4" y="415" class="st5" width="89" height="40.5"/>
-		<text id="XMLID_137_" transform="matrix(1 0 0 1 77.105 422.858)"><tspan x="0" y="0" class="st0 st6 st14">0%</tspan><tspan x="-51.6" y="10.8" class="st8 st6 st15">of the Population</tspan></text>
+		<rect id="XMLID_137_" x="4" y="444.8" class="st5" width="89" height="20.3"/>
+		<text id="XMLID_136_" transform="matrix(1 0 0 1 77.105 452.6479)"><tspan x="0" y="0" class="st0 st6 st14">0%</tspan><tspan x="-51.6" y="10.8" class="st8 st6 st15">of the Population</tspan></text>
 	</g>
-	<polygon id="XMLID_41_" class="st16" points="33.8,156.1 26.3,143.1 33.8,130.2 48.8,130.2 56.2,143.1 48.8,156.1 	"/>
+	<rect id="slider-rect" y="102.7" class="st16" width="841.9" height="90.5"/>
+</g>
+<g id="slider-sym">
+	<polygon id="slider-icon" class="st17" points="33.8,156.1 26.3,143.1 33.8,130.2 48.8,130.2 56.2,143.1 48.8,156.1 	"/>
 </g>
 <g id="bar">
 	<g id="XMLID_10_">
 		<g id="binary">
-			<rect id="XMLID_135_" x="99.5" y="205.3" class="st5" width="52.8" height="257.2"/>
-			<text id="XMLID_134_" transform="matrix(1 0 0 1 100.6501 209.5811)" class="st0 st17 st18">010100010010</text>
+			<rect id="XMLID_134_" x="99.5" y="205.3" class="st5" width="52.8" height="257.2"/>
+			<text id="XMLID_133_" transform="matrix(1 0 0 1 100.6501 209.5811)" class="st0 st18 st19">010100010010</text>
 		</g>
 		<linearGradient id="XMLID_14_" gradientUnits="userSpaceOnUse" x1="125.8544" y1="501" x2="125.8544" y2="205.29">
 			<stop  offset="9.950249e-002" style="stop-color:#35B44A"/>
@@ -326,10 +330,10 @@
 			<stop  offset="0.7164" style="stop-color:#35B44A;stop-opacity:0.1"/>
 			<stop  offset="1" style="stop-color:#35B44A;stop-opacity:0.1"/>
 		</linearGradient>
-		<polygon id="XMLID_45_" class="st19" points="99.5,205.3 99.5,475.7 123.3,501 128.5,501 152.3,475.7 152.3,205.3 		"/>
+		<polygon id="XMLID_45_" class="st20" points="99.5,205.3 99.5,475.7 123.3,501 128.5,501 152.3,475.7 152.3,205.3 		"/>
 	</g>
-	<rect id="XMLID_20_" x="110.5" y="475.7" class="st20" width="28.7" height="119.6"/>
-	<rect id="XMLID_130_" x="115.9" y="462.4" class="st5" width="18" height="129.7"/>
-	<text id="country-name" transform="matrix(8.979319e-011 -1 1 8.979319e-011 133.1165 586.4775)" class="st21 st6 st22">Switzerland</text>
+	<rect id="XMLID_20_" x="110.5" y="475.7" class="st21" width="28.7" height="119.6"/>
+	<rect id="XMLID_130_" x="115" y="462.4" class="st5" width="18" height="129.7"/>
+	<text id="country-name" transform="matrix(-4.489659e-011 -1 1 -4.489659e-011 132.2429 586.4775)" class="st22 st6 st23">Switzerland</text>
 </g>
 </svg>
